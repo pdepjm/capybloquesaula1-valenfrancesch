@@ -67,3 +67,33 @@ object barrilDeCombustible {
     game.removeTickEvent("cambiarCombustible")
   }
 }
+
+object bolsa {
+  var property position = posicionAleatoria.calcular()
+  var property longitudCm = 10
+  
+  method impactoEnLaHuellaDeCarbono() = 2 * longitudCm
+  method nombre() = "bolsa"
+  method image() = self.nombre() + ".png"
+
+  method esReciclable() = true
+  
+  method colisionarCon(capy) {
+    capy.recolectarBasura(self)
+  }
+
+  method moverDeLado(){
+    if(position.right() < game.width()){
+      position.right(1)
+    }else{
+      position.left(1)
+    }
+  }
+
+  method moverSiempre(){
+    game.schedule(2000, { 
+     self.moverDeLado()
+    })
+  }
+
+}
